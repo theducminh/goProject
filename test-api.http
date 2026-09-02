@@ -1,0 +1,61 @@
+### Test API Endpoints
+### Lưu file này với extension .http hoặc .rest
+### Dùng VS Code REST Client extension để test
+
+###############################################
+# 1. THÊM SẢN PHẨM
+###############################################
+POST http://localhost:8080/products
+Content-Type: application/json
+
+{
+  "code": "PROD001",
+  "name": "Laptop Dell XPS 13",
+  "price": 25000000
+}
+
+###############################################
+# 2. LẤY SẢN PHẨM (Cache - Redis)
+###############################################
+GET http://localhost:8080/products/1
+
+###############################################
+# 3. TÌM KIẾM FULL-TEXT (Elasticsearch)
+###############################################
+GET http://localhost:8080/search?q=laptop
+
+###############################################
+# 4. DATABASE - Xem tất cả sản phẩm
+###############################################
+### Dùng curl hoặc psql:
+### psql -h localhost -U admin -d godb -W
+### SELECT * FROM products;
+
+###############################################
+# 5. REDIS - Kiểm tra cache
+###############################################
+### Dùng redis-cli:
+### redis-cli
+### KEYS *
+### GET product:1
+
+###############################################
+# 6. ELASTICSEARCH - Tìm kiếm
+###############################################
+GET http://localhost:9200/products/_search
+Content-Type: application/json
+
+{
+  "query": {
+    "match": {
+      "name": "laptop"
+    }
+  }
+}
+
+###############################################
+# NOTES:
+# - Lần đầu lấy sản phẩm: source: POSTGRES
+# - Lần 2-10: source: REDIS (cache 10 phút)
+# - Tìm kiếm: Dùng Elasticsearch (full-text)
+###############################################

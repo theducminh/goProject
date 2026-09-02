@@ -1,0 +1,19 @@
+syntax = "proto3";
+
+package warehouse.v1;
+
+option go_package = "goproject/delivery/grpc;grpcdelivery";
+
+service WarehouseService {
+  rpc CheckStock(CheckStockRequest) returns (CheckStockResponse);
+}
+
+message CheckStockRequest {
+  uint64 product_id = 1;
+  uint64 quantity = 2;
+}
+
+message CheckStockResponse {
+  bool available = 1;
+  uint64 stock = 2;
+}

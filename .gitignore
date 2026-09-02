@@ -1,0 +1,32 @@
+# OS / editor
+.DS_Store
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+
+
+# Build output
+bin/
+dist/
+*.exe
+*.out
+coverage.out
+
+# Dependency cache
+vendor/
+
+# Logs
+*.log
+logs/
+
+# Docker volumes / temp data
+pgdata/
+esdata/
+redisdata/
+
+# Go compiled files
+*.test
